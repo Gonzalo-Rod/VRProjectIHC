@@ -5,18 +5,16 @@ public class MainMenuController : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene"); // Adjust to your game scene's name
+        SceneManager.LoadScene("HouseScene");
     }
 
     public void OpenSettings()
     {
-        // Implement your settings menu logic
         Debug.Log("Settings menu opened");
     }
 
     public void OpenAbout()
     {
-        // Implement your about menu logic
         Debug.Log("About menu opened");
     }
 
