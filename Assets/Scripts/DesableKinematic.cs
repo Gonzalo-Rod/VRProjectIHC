@@ -1,39 +1,47 @@
 using UnityEngine;
+using Oculus.Interaction;
 
 public class DisableKinematic : MonoBehaviour
 {
-    private Rigidbody rb;
-    private Vector3 lastPosition;
+    private Rigidbody rb; // Reference to the object's Rigidbody
+    private bool isGrabbed = false; // Tracks the grab state
 
     void Start()
     {
-        // Get the Rigidbody component attached to the object
+        // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
 
-        // Store the initial position of the object
-        lastPosition = transform.position;
-
-        // If there's no Rigidbody, print a warning
         if (rb == null)
         {
-            Debug.LogWarning("No Rigidbody found on this object!");
+            Debug.LogError("Rigidbody component not found on the object.");
+        }
+
+        // Ensure Rigidbody starts as kinematic
+        rb.isKinematic = true;
+
+        // Register grab events
+        var grabbable = GetComponent<Grabbable>();
+        if (grabbable == null)
+        {
+            Debug.LogError("Grabbable component not found on the object.");
+            return;
+        }
+
+        grabbable.WhenPointerEventRaised += HandleGrabEvent;
+    }
+
+    private void HandleGrabEvent(PointerEvent evt)
+    {
+        // Toggle grab state based on the event type
+        if (evt.Type == PointerEventType.Select)
+        {
+            OnGrab();
         }
     }
 
-    void Update()
+    private void OnGrab()
     {
-        // Check if the position has changed
-        if (transform.position != lastPosition)
-        {
-            // Disable isKinematic if the object has moved
-            if (rb != null && rb.isKinematic)
-            {
-                rb.isKinematic = false;
-                Debug.Log("isKinematic disabled because the object moved.");
-            }
-
-            // Update the last position to the current position
-            lastPosition = transform.position;
-        }
+        isGrabbed = true;
+        rb.isKinematic = false; // Disable isKinematic when grabbed
     }
 }

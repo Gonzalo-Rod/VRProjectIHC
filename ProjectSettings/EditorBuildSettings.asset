@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HouseScene.unity
     guid: ac334a731a261774b89b211e3bbaafb5
+  - enabled: 1
+    path: Assets/Scenes/CompleteScene.unity
+    guid: bb2deae4b65e47c46a4bb34ed63143bc
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 180a0a081c1371e4ba3b6d1d3b4ea74d, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fe6448cf61739894aa62ae346dd056f5, type: 2}
